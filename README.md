@@ -13,6 +13,7 @@ It is designed for cases where a computer is connected to a large external displ
 - Display mode selector:
   - `Fill`: fills the preview area and reduces black bars.
   - `Full`: keeps the whole source screen visible with original aspect ratio.
+- Work area capture mode to exclude the taskbar or system-reserved area, which helps remove bottom black bars caused by the extended screen taskbar.
 - Always-on-top toggle.
 - Pause/resume preview refresh.
 - Monitor refresh button for display plug/unplug changes.
@@ -52,6 +53,7 @@ More info -> Run anyway
 | --- | --- |
 | Monitor dropdown | Selects which screen to preview. |
 | `Fill` / `Full` | Switches preview display mode. `Fill` fills the window; `Full` keeps the whole screen visible with original aspect ratio. |
+| `Work` | Captures only the screen working area, usually excluding the taskbar and reserved desktop area. |
 | `Top` | Keeps the preview window always on top. |
 | `Pause` | Temporarily stops preview refresh. |
 | `Mouse+` | Shows enlarged mouse locator and zoom preview when the cursor is on the previewed screen. |
@@ -137,6 +139,7 @@ Main changes in this version:
 - Changed toolbar labels back to Chinese in the app.
 - Added preview display mode selector.
 - Defaults to fill mode to reduce black bars when the window aspect ratio does not match the source screen.
+- Added work area capture mode to remove taskbar/reserved-area black bars.
 - Added mouse magnifier preview.
 - Added larger cursor overlay and yellow locator ring.
 - Kept per-monitor DPI awareness from the previous fix.

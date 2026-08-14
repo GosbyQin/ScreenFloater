@@ -58,6 +58,7 @@ namespace ScreenFloater
     {
         private readonly ComboBox screenCombo = new ComboBox();
         private readonly ComboBox modeCombo = new ComboBox();
+        private readonly CheckBox workAreaCheck = new CheckBox();
         private readonly CheckBox topMostCheck = new CheckBox();
         private readonly CheckBox pauseCheck = new CheckBox();
         private readonly CheckBox magnifyMouseCheck = new CheckBox();
@@ -172,6 +173,16 @@ namespace ScreenFloater
             modeCombo.SelectedIndex = 0;
             modeCombo.SelectedIndexChanged += delegate { ApplyDisplayMode(); };
 
+            workAreaCheck.Text = "\u5de5\u4f5c\u533a";
+            workAreaCheck.Checked = true;
+            workAreaCheck.AutoSize = true;
+            workAreaCheck.Top = 9;
+            workAreaCheck.CheckedChanged += delegate
+            {
+                FitWindowToSourceAspect();
+                UpdateStatus(true);
+            };
+
             topMostCheck.Text = "\u7f6e\u9876";
             topMostCheck.Checked = true;
             topMostCheck.AutoSize = true;
@@ -201,6 +212,7 @@ namespace ScreenFloater
 
             toolbar.Controls.Add(screenCombo);
             toolbar.Controls.Add(modeCombo);
+            toolbar.Controls.Add(workAreaCheck);
             toolbar.Controls.Add(topMostCheck);
             toolbar.Controls.Add(pauseCheck);
             toolbar.Controls.Add(magnifyMouseCheck);
@@ -215,7 +227,8 @@ namespace ScreenFloater
         private void LayoutToolbar(Control toolbar)
         {
             modeCombo.Left = screenCombo.Right + 8;
-            topMostCheck.Left = modeCombo.Right + 10;
+            workAreaCheck.Left = modeCombo.Right + 10;
+            topMostCheck.Left = workAreaCheck.Right + 12;
             pauseCheck.Left = topMostCheck.Right + 12;
             magnifyMouseCheck.Left = pauseCheck.Right + 12;
             refreshButton.Left = magnifyMouseCheck.Right + 12;
@@ -296,7 +309,7 @@ namespace ScreenFloater
                 return;
             }
 
-            Rectangle b = screens[selectedScreenIndex].Bounds;
+            Rectangle b = GetCaptureBounds(screens[selectedScreenIndex]);
             if (b.Width <= 0 || b.Height <= 0)
             {
                 return;
@@ -320,7 +333,7 @@ namespace ScreenFloater
                 selectedScreenIndex = 0;
             }
 
-            Rectangle bounds = screens[selectedScreenIndex].Bounds;
+            Rectangle bounds = GetCaptureBounds(screens[selectedScreenIndex]);
             if (bounds.Width <= 0 || bounds.Height <= 0)
             {
                 return;
@@ -514,7 +527,7 @@ namespace ScreenFloater
                 return;
             }
 
-            Rectangle b = screens[selectedScreenIndex].Bounds;
+            Rectangle b = GetCaptureBounds(screens[selectedScreenIndex]);
             statusLabel.Text = string.Format(
                 "\u6e90: {0}x{1}    \u7a97\u53e3: {2}x{3}    T=\u7f6e\u9876, \u7a7a\u683c=\u6682\u505c, M=\u9f20\u6807+",
                 b.Width,
@@ -522,6 +535,16 @@ namespace ScreenFloater
                 ClientSize.Width,
                 Math.Max(0, ClientSize.Height - 38));
             lastStatusUpdate = DateTime.Now;
+        }
+
+        private Rectangle GetCaptureBounds(Screen screen)
+        {
+            Rectangle bounds = workAreaCheck.Checked ? screen.WorkingArea : screen.Bounds;
+            if (bounds.Width <= 0 || bounds.Height <= 0)
+            {
+                return screen.Bounds;
+            }
+            return bounds;
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
