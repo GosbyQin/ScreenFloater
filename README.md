@@ -1,8 +1,14 @@
 # ScreenFloater
 
+[中文说明](README.zh-CN.md)
+
 ScreenFloater is a small portable Windows tool for previewing an extended monitor in a floating window on your main screen.
 
 It is designed for cases where a computer is connected to a large external display as an extended screen, but the operator cannot directly see that external display.
+
+## Preview
+
+![ScreenFloater preview](docs/images/screenfloater-preview.png)
 
 ## Features
 

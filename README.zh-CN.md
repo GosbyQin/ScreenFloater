@@ -1,8 +1,14 @@
 # ScreenFloater 扩展屏预览悬浮窗
 
+[English README](README.md)
+
 ScreenFloater 是一个极简的 Windows 小工具，用来在主屏上显示另一个显示器的实时预览窗口。
 
 它适合这种场景：电脑外接大屏作为扩展屏，但操作者和大屏同向，或者坐在大屏背面，看不到大屏当前显示的内容。
+
+## 运行效果
+
+![ScreenFloater 运行效果](docs/images/screenfloater-preview.png)
 
 ## 功能
 
